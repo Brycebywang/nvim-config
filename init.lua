@@ -42,4 +42,4 @@ require("lsp.null-ls")
 --
 
 -- require("dap.vimspector")
-require("dap.nvim-dap")
+require("nvim-dap")

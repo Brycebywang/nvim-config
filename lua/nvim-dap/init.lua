@@ -86,12 +86,12 @@ dap.listeners.before.event_exited["dapui_config"] = function()
   dapui.close()
 end
 
-require("dap.nvim-dap.lua").setup()
+require("nvim-dap.lua").setup()
 require("keybindings").mapDAP()
 
 -- 加载调试器配置
 local dap_config = {
-  python = require("dap.nvim-dap.python")
+  python = require("nvim-dap.python")
 }
 
 for dap_name, dap_options in pairs(dap_config) do

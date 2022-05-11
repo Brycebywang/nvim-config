@@ -42,11 +42,7 @@ null_ls.setup({
     -- asdf reshim python
     formatting.black.with({ extra_args = { "--fast" } }),
     -----------------------------------------------------
-    -- Ruby
-    -- gem install rubocop
-    formatting.rubocop,
     -----------------------------------------------------
-    -- formatting.fixjson,
     -- Diagnostics  ---------------------
     diagnostics.eslint.with({
       prefer_local = "node_modules/.bin",
@@ -60,7 +56,6 @@ null_ls.setup({
     -- }),
     --
     -- code actions ---------------------
-    code_actions.gitsigns,
     code_actions.eslint.with({
       prefer_local = "node_modules/.bin",
     }),

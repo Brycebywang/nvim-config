@@ -114,8 +114,6 @@ packer.startup({
     use("numToStr/Comment.nvim")
     -- nvim-autopairs
     use("windwp/nvim-autopairs")
-    -- git
-    use({ "lewis6991/gitsigns.nvim" })
     -- vimspector
     -- use("puremourning/vimspector")
     ----------------------------------------------

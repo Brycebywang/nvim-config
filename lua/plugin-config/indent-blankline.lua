@@ -1,3 +1,4 @@
+-- 该插件为所有行添加缩进指南（包括空行）
 local status, indent_blankline = pcall(require, "indent_blankline")
 if not status then
   vim.notify("没有找到 indent_blankline")
@@ -31,7 +32,6 @@ indent_blankline.setup({
     "terminal",
     "help",
     "log",
-    "markdown",
     "TelescopePrompt",
     "lsp-installer",
     "lspinfo",
