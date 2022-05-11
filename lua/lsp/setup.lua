@@ -14,7 +14,6 @@ local servers = {
   pyright = require("lsp.config.pyright"),
   jsonls = require("lsp.config.json"),
   yamlls = require("lsp.config.yamlls"),
-  -- remark_ls = require("lsp.config.markdown"),
 }
 
 for name, config in pairs(servers) do

@@ -58,8 +58,11 @@ map("v", "K", ":move '<-2<CR>gv-gv", opt)
 map("v", "p", '"_dP', opt)
 
 -- 退出
-map("n", "qq", ":q!<CR>", opt)
-map("n", "<leader>q", ":qa!<CR>", opt)
+map("n", "<leader>q", ":q<CR>", opt)
+map("n", "<leader>qa", ":qa<CR>", opt)
+map("n", "<leader>wqa", ":wqa<CR>", opt)
+map("n", "<leader>wq", ":wq<CR>", opt)
+map("n", "<leader>w", ":w<CR>", opt)
 
 -- insert 模式下，跳到行首行尾
 -- map("i", "<C-h>", "<ESC>I", opt)
@@ -100,18 +103,14 @@ map("n", "<C-Up>", ":resize -2<CR>", opt)
 map("n", "s=", "<C-w>=", opt)
 
 -- Terminal相关
-map("n", "st", ":sp | terminal<CR>", opt)
-map("n", "stv", ":vsp | terminal<CR>", opt)
+-- map("n", "st", ":sp | terminal<CR>", opt)
+-- map("n", "stv", ":vsp | terminal<CR>", opt)
 -- Esc 回 Normal 模式
 map("t", "<Esc>", "<C-\\><C-n>", opt)
 map("t", "<A-h>", [[ <C-\><C-N><C-w>h ]], opt)
 map("t", "<A-j>", [[ <C-\><C-N><C-w>j ]], opt)
 map("t", "<A-k>", [[ <C-\><C-N><C-w>k ]], opt)
 map("t", "<A-l>", [[ <C-\><C-N><C-w>l ]], opt)
-map("t", "<leader>h", [[ <C-\><C-N><C-w>h ]], opt)
-map("t", "<leader>j", [[ <C-\><C-N><C-w>j ]], opt)
-map("t", "<leader>k", [[ <C-\><C-N><C-w>k ]], opt)
-map("t", "<leader>l", [[ <C-\><C-N><C-w>l ]], opt)
 --------------------------------------------------------------------
 -- 插件快捷键
 local pluginKeys = {}
@@ -121,7 +120,6 @@ map("n", "zz", ":foldclose<CR>", opt)
 map("n", "Z", ":foldopen<CR>", opt)
 
 -- nvim-tree
-map("n", "<A-m>", ":NvimTreeToggle<CR>", opt)
 map("n", "<leader>m", ":NvimTreeToggle<CR>", opt)
 -- 列表快捷键
 pluginKeys.nvimTreeList = { -- 打开文件或文件夹
@@ -211,52 +209,17 @@ map("v", "<C-_>", "gcc", { noremap = false })
 -- lsp 回调函数快捷键设置
 pluginKeys.mapLSP = function(mapbuf)
   -- rename
-  --[[
-  Lspsaga 替换 rn
-  mapbuf("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opt)
-  --]]
   mapbuf("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", opt)
-  -- code action
-  --[[
-  Lspsaga 替换 ca
-  mapbuf("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opt)
-  --]]
   mapbuf("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>", opt)
-  -- go xx
-  --[[
-    mapbuf('n', 'gd', '<cmd>Lspsaga preview_definition<CR>', opt)
-  --]]
+  -- goto
   mapbuf("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opt)
-  --[[
-  mapbuf("n", "gh", "<cmd>Lspsaga hover_doc<cr>", opt)
-  Lspsaga 替换 gh
-  --]]
   mapbuf("n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", opt)
-  --[[
-  Lspsaga 替换 gr
-  mapbuf("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opt)
-  --]]
   mapbuf("n", "gr", "<cmd>Lspsaga lsp_finder<CR>", opt)
-  --[[
-  Lspsaga 替换 gp, gj, gk
-  mapbuf("n", "gp", "<cmd>lua vim.diagnostic.open_float()<CR>", opt)
-  mapbuf("n", "gj", "<cmd>lua vim.diagnostic.goto_next()<CR>", opt)
-  mapbuf("n", "gk", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opt)
-  --]]
   -- diagnostic
   mapbuf("n", "gp", "<cmd>Lspsaga show_line_diagnostics<CR>", opt)
   mapbuf("n", "gj", "<cmd>Lspsaga diagnostic_jump_next<cr>", opt)
   mapbuf("n", "gk", "<cmd>Lspsaga diagnostic_jump_prev<cr>", opt)
   mapbuf("n", "<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opt)
-  -- 未用
-  -- mapbuf("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opt)
-  -- mapbuf("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opt)
-  -- mapbuf('n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opt)
-  -- mapbuf("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opt)
-  -- mapbuf('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opt)
-  -- mapbuf('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opt)
-  -- mapbuf('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opt)
-  -- mapbuf('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opt)
 end
 
 -- typescript 快捷键
@@ -294,23 +257,6 @@ pluginKeys.mapDAP = function()
   -- 弹窗
   map("n", "<leader>dh", ":lua require'dapui'.eval()<CR>", opt)
 end
-
--- -- vimspector
--- pluginKeys.mapVimspector = function()
---   -- 开始
---   map("n", "<leader>dd", ":call vimspector#Launch()<CR>", opt)
---   -- 结束
---   map("n", "<Leader>de", ":call vimspector#Reset()<CR>", opt)
---   -- 继续
---   map("n", "<Leader>dc", ":call vimspector#Continue()<CR>", opt)
---   -- 设置断点
---   map("n", "<Leader>dt", ":call vimspector#ToggleBreakpoint()<CR>", opt)
---   map("n", "<Leader>dT", ":call vimspector#ClearBreakpoints()<CR>", opt)
---   --  stepOver, stepOut, stepInto
---   map("n", "<leader>dj", "<Plug>VimspectorStepOver", opt)
---   map("n", "<leader>dk", "<Plug>VimspectorStepOut", opt)
---   map("n", "<leader>dl", "<Plug>VimspectorStepInto", opt)
--- end
 
 -- nvim-cmp 自动补全
 pluginKeys.cmp = function(cmp)
@@ -392,57 +338,6 @@ pluginKeys.mapToggleTerm = function(toggleterm)
   vim.keymap.set({ "n", "t" }, "<leader>tb", toggleterm.toggleB)
   vim.keymap.set({ "n", "t" }, "<leader>tc", toggleterm.toggleC)
   vim.keymap.set({ "n", "t" }, "<leader>tg", toggleterm.toggleG)
-end
-
--- gitsigns
-pluginKeys.gitsigns_on_attach = function(bufnr)
-  local gs = package.loaded.gitsigns
-
-  local function map(mode, l, r, opts)
-    opts = opts or {}
-    opts.buffer = bufnr
-    vim.keymap.set(mode, l, r, opts)
-  end
-
-  -- Navigation
-  map("n", "<leader>gj", function()
-    if vim.wo.diff then
-      return "]c"
-    end
-    vim.schedule(function()
-      gs.next_hunk()
-    end)
-    return "<Ignore>"
-  end, { expr = true })
-
-  map("n", "<leader>gk", function()
-    if vim.wo.diff then
-      return "[c"
-    end
-    vim.schedule(function()
-      gs.prev_hunk()
-    end)
-    return "<Ignore>"
-  end, { expr = true })
-
-  map({ "n", "v" }, "<leader>gs", ":Gitsigns stage_hunk<CR>")
-  map("n", "<leader>gS", gs.stage_buffer)
-  map("n", "<leader>gu", gs.undo_stage_hunk)
-  map({ "n", "v" }, "<leader>gr", ":Gitsigns reset_hunk<CR>")
-  map("n", "<leader>gR", gs.reset_buffer)
-  map("n", "<leader>gp", gs.preview_hunk)
-  map("n", "<leader>gb", function()
-    gs.blame_line({ full = true })
-  end)
-  map("n", "<leader>gd", gs.diffthis)
-  map("n", "<leader>gD", function()
-    gs.diffthis("~")
-  end)
-  -- toggle
-  map("n", "<leader>gtd", gs.toggle_deleted)
-  map("n", "<leader>gtb", gs.toggle_current_line_blame)
-  -- Text object
-  map({ "o", "x" }, "ig", ":<C-U>Gitsigns select_hunk<CR>")
 end
 
 return pluginKeys
