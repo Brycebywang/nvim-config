@@ -1,7 +1,8 @@
 return {
     "hrsh7th/nvim-cmp", 
-    lazy = true, 
     event = "InsertEnter", 
+    version = false, -- last release is way too old
+    lazy = true, 
     dependencies = {
 		"L3MON4D3/LuaSnip",
 		"hrsh7th/cmp-path",
